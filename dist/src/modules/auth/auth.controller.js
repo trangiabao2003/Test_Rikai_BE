@@ -32,23 +32,8 @@ let AuthController = class AuthController {
     login(dto) {
         return this.authService.login(dto);
     }
-    async getProfile(req) {
-        const user = await this.prisma.user.findUnique({
-            where: { id: req.user.id },
-            select: {
-                id: true,
-                email: true,
-                username: true,
-                avatar: true,
-                bio: true,
-                role: true,
-                createdAt: true,
-            },
-        });
-        if (!user) {
-            throw new common_1.NotFoundException('User not found');
-        }
-        return user;
+    profile(req) {
+        return this.authService.profile(req.user.id);
     }
 };
 exports.AuthController = AuthController;
@@ -73,8 +58,8 @@ __decorate([
     __param(0, (0, common_1.Request)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", Promise)
-], AuthController.prototype, "getProfile", null);
+    __metadata("design:returntype", void 0)
+], AuthController.prototype, "profile", null);
 exports.AuthController = AuthController = __decorate([
     (0, common_1.Controller)('auth'),
     __metadata("design:paramtypes", [auth_service_1.AuthService,

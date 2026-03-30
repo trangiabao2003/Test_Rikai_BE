@@ -81,6 +81,24 @@ let AuthService = class AuthService {
         const token = await this.signToken(user.id, user.email);
         return { user: result, access_token: token };
     }
+    async profile(userId) {
+        const user = await this.prisma.user.findUnique({
+            where: { id: userId },
+            select: {
+                id: true,
+                email: true,
+                username: true,
+                avatar: true,
+                bio: true,
+                role: true,
+                createdAt: true,
+            },
+        });
+        if (!user) {
+            throw new common_1.NotFoundException('User not found');
+        }
+        return user;
+    }
     async signToken(userId, email) {
         return this.jwt.signAsync({ sub: userId, email });
     }

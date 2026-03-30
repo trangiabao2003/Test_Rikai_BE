@@ -32,5 +32,14 @@ export declare class AuthService {
         };
         access_token: string;
     }>;
+    profile(userId: number): Promise<{
+        email: string;
+        username: string;
+        id: number;
+        avatar: string | null;
+        bio: string | null;
+        role: import("@prisma/client").$Enums.Role;
+        createdAt: Date;
+    }>;
     private signToken;
 }
