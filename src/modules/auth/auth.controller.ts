@@ -11,7 +11,7 @@ export class AuthController {
   constructor(
     private authService: AuthService,
     private prisma: PrismaService,
-  ) {}
+  ) { }
 
   @Public()
   @Post('register')
